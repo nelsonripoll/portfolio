@@ -1,6 +1,6 @@
-## NGINX
+# NGINX
 
-### Install prerequisites
+## Install prerequisites
 
 Installing nginx from source requires a c/c++ compiler.
 
@@ -8,8 +8,7 @@ Installing nginx from source requires a c/c++ compiler.
 yum install gcc
 ```
 
-
-#### PCRE (Perl Compatible Regular Expressions)
+### PCRE (Perl Compatible Regular Expressions)
 
 PCRE is used for regular expressions and is required for ngx\_http\_rewrite\_module. 
 
@@ -18,7 +17,7 @@ Install pcre and pcre2 and their respective libraries for the http rewrite modul
 yum install pcre pcre-static pcre2 pcre2-static
 ```
 
-#### ZLib
+### ZLib
 
 Zlib is a data-compression library used for the http\_zip\_module to compress the responses of a HTTP server.
 
@@ -36,13 +35,13 @@ tar -xzf nginx-1.10.1.tar.gz
 cd nginx-1.10.1
 ```
 
-### Configure
+## Configure
 
 ```
 ./configure
 ```
 
-#### Options
+### Options
 
 By default, log files are located at /usr/local/nginx/logs. The log paths can be changed in the nginx.conf file or during configuration.
 ```
@@ -55,7 +54,7 @@ By default, user and group for the server worker processes is not set. The usern
 ```
 
 
-#### Modules
+### Modules
 
 If you have the source to the PCRE library, provide the path to be compiled with nginx.
 ```
@@ -87,7 +86,7 @@ All options and modules have to be set in the same configure command before inst
 		
 ```
 
-### Install
+## Install
 
 ```
 make
