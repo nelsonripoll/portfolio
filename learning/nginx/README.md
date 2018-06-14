@@ -1,11 +1,13 @@
 # NGINX
-## Install prerequisites
+
+## CentOS 7
+### Install prerequisites
 Installing nginx from source requires a c/c++ compiler.
 ```
 yum install gcc
 ```
 
-### PCRE (Perl Compatible Regular Expressions)
+#### PCRE (Perl Compatible Regular Expressions)
 PCRE is used for regular expressions and is required for ngx\_http\_rewrite\_module. 
 
 Install pcre and pcre2 and their respective libraries for the http rewrite module.
@@ -13,7 +15,7 @@ Install pcre and pcre2 and their respective libraries for the http rewrite modul
 yum install pcre pcre-static pcre2 pcre2-static
 ```
 
-### ZLib
+#### ZLib
 Zlib is a data-compression library used for the http\_zip\_module to compress the responses of a HTTP server.
 
 Install zlib and its libraries.
@@ -40,7 +42,7 @@ By default, log files are located at /usr/local/nginx/logs. The log paths can be
 ./configure --http-log-path=*name* --error-log-path=*name*
 ```
 
-By default, user and group for the server worker processes is not set. The username and group can be set in the nginx.conf file or during configuration.
+By default, user and group for the server worker processes is not set. The username and group can be set in the nginx.conf file or during configuration. The user and group must exist or nginx will not run.
 ```
 ./configure --user=*name* --group=*name*
 ```
@@ -52,7 +54,7 @@ If you have the source to the PCRE library, provide the path to be compiled with
 ./configure --with-pcre=/path/to/pcre/source
 ```
 
-If you do not want to have the server redirect requers and change URI of requests, disable the ngx\_http\_rewrite\_module.
+If you do not want to have the server redirect or change the URI of requests, disable the ngx\_http\_rewrite\_module.
 ```
 ./configure --without-http_rewrite_module
 ```
