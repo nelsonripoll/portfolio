@@ -82,7 +82,7 @@ All options and modules have to be set in the same configure command before inst
             --http-log-path=/var/log/nginx/access.log \
             --error-log-path=/var/log/nginx/error.log \
             --user=www \
-            --password=www
+            --group=www
 		
 ```
 
