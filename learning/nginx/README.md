@@ -1,16 +1,17 @@
-Install gcc to build from projects from source
+## NGINX
+
+### Install prerequisites
+
+Installing nginx from source requires a c/c++ compiler.
 
 ```
 yum install gcc
 ```
 
-## NGINX
-
-### Install prerequisites
 
 #### PCRE (Perl Compatible Regular Expressions)
 
-PCRE is required regular expressions support and the ngx\_http\_rewrite\_module. 
+PCRE is used for regular expressions and is required for ngx\_http\_rewrite\_module. 
 
 Install pcre and pcre2 and their respective libraries for the http rewrite module.
 ```
@@ -19,7 +20,7 @@ yum install pcre pcre-static pcre2 pcre2-static
 
 #### ZLib
 
-Zlib is a cross-platform, lossless data-compression library used for the http\_zip\_module to compress the responses of an HTTP server.
+Zlib is a data-compression library used for the http\_zip\_module to compress the responses of a HTTP server.
 
 Install zlib and its libraries.
 ```
