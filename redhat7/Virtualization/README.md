@@ -1,4 +1,5 @@
 # Virtualization
+[Red Hat - Virtualization Getting Started Guide](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_getting_started_guide/index)
 ## Packages
 ### Install Group Packages
 ```
@@ -62,22 +63,15 @@ Virtual networking in KVM uses **libvirt**. Libvirt uses the concept of a
  virtual network switch and shows up as a network interface. A default switch
  named **virbr0** is created when the libvirt daemon is first installed and 
  started.
-You can use **ifconfig** or **ip** commands to view the virbr0 device. 
-#### ifconfig
+#### Connect To KVM Hypervisor As Root
+To connect locally as the root user to the daemon supervising guest virtual
+ machines on the KVM hypervisor.
 ```
-# ifconfig virbr0
- virbr0    Link encap:Ethernet  HWaddr 1A:D4:92:CF:FD:17  
-           inet addr:192.168.122.1  Bcast:192.168.122.255  Mask:255.255.255.0
-           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-           RX packets:0 errors:0 dropped:0 overruns:0 frame:0
-           TX packets:11 errors:0 dropped:0 overruns:0 carrier:0
-           collisions:0 txqueuelen:0 
-           RX bytes:0 (0.0 b)  TX bytes:3097 (3.0 KiB)
+# virsh -c qemu:///system
 ```
-#### ip
+#### Connect To KVM Hypervisor As User
+To connect locally as a user to the user's set of guest local machines using the
+ KVM hypervisor.
 ```
-# ip addr show virbr0
-3: virbr0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UNKNOWN 
-    link/ether 1a:d4:92:cf:fd:17 brd ff:ff:ff:ff:ff:ff
-    inet 192.168.122.1/24 brd 192.168.122.255 scope global virbr0
+# virsh -c qemu:///session
 ```
