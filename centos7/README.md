@@ -42,8 +42,7 @@ If one of the flags exists, load the module based on the hardware.
 ```
 #### AMD Hardware
 ```
-cat /proc/cpuinfo | grep svm
-modprobe kvm_amd
+# modprobe kvm_amd
 ```
 ## VM Storage
 ### Manage Image Locations
@@ -52,9 +51,9 @@ Virtual images are stored in '/var/lib/libvirt/images' and can take up a lot of
  default location and retain the default SELinux settings.
 
 ```
-mkdir /path/to/dir/KVM
-semanage fcontext -a -t virt_image_t '/path/to/dir/KVM(/.*)?'
-restorecon /path/to/dir/KVM
-rmdir /var/lib/libvirt/images
-ln -s /path/to/dir/KVM /var/lib/libvirt/images
+# mkdir /path/to/dir/KVM
+# semanage fcontext -a -t virt_image_t '/path/to/dir/KVM(/.*)?'
+# restorecon /path/to/dir/KVM
+# rmdir /var/lib/libvirt/images
+# ln -s /path/to/dir/KVM /var/lib/libvirt/images
 ```
