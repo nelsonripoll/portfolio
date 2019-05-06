@@ -45,33 +45,24 @@ If one of the flags exists, load the module based on the hardware.
 ```
 # modprobe kvm_amd
 ```
-## Manage Image Locations
-Virtual images are stored in **/var/lib/libvirt/images** and can take up a lot of 
- space. To control where the images are stored, we can link a new path to the
- default location and retain the default SELinux settings.
-```
-# mkdir /path/to/dir/KVM
-# semanage fcontext -a -t virt_image_t '/path/to/dir/KVM(/.*)?'
-# restorecon /path/to/dir/KVM
-# rmdir /var/lib/libvirt/images
-# ln -s /path/to/dir/KVM /var/lib/libvirt/images
-```
 ## Virtual Shell
-### Virtual Storage
-### Virtual Networking
-Virtual networking in KVM uses **libvirt**. Libvirt uses the concept of a 
- virtual network switch and shows up as a network interface. A default switch
- named **virbr0** is created when the libvirt daemon is first installed and 
- started.
-#### Connect To KVM Hypervisor As Root
 To connect locally as the root user to the daemon supervising guest virtual
  machines on the KVM hypervisor.
 ```
 # virsh -c qemu:///system
 ```
-#### Connect To KVM Hypervisor As User
 To connect locally as a user to the user's set of guest local machines using the
  KVM hypervisor.
 ```
 # virsh -c qemu:///session
 ```
+## virt-install
+| Switch            | Description                                                 |
+| ----------------- | ----------------------------------------------------------- |
+| -n, --name        | Sets the name for the VM.                                   |
+| --vcpus           | Configures the number of virtual CPUs.                      |
+| -r, --ram         | Configures the amount of RAM in MB.                         |
+| --disk            | Defines the virtual disk.                                   |
+| -l, --location    | Specifies the directory or URL with the installation files. |
+| --graphics        | Specifies the graphical display settings of the guest.      |
+| -x, --extra-args= | Includes extra data, such as the URL of a Kickstart file.   |
