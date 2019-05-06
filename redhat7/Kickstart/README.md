@@ -4,7 +4,7 @@
 # mount -o loop CentOS7.iso /media
 ```
 ## HTTP
-Run the following commands then use a browser to navigate to http://192.168.122.1/inst.
+Run the following commands then use a browser to navigate to http://localhost/inst.
 ```
 # yum install httpd
 # mkdir /var/www/html/inst
@@ -17,7 +17,7 @@ Run the following commands then use a browser to navigate to http://192.168.122.
 # systemctl restart httpd
 ```
 ## FTP
-Run the following commands then use a browser to navigate to ftp://192.168.122.1/pub/inst.
+Run the following commands then use a browser to navigate to ftp://localhost/pub/inst.
 ```
 # yum install vsftpd
 # mkdir /var/ftp/pub/inst
