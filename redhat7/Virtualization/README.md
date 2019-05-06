@@ -57,12 +57,50 @@ To connect locally as a user to the user's set of guest local machines using the
 # virsh -c qemu:///session
 ```
 ## virt-install
+The **virt-install** is a command line tool used for creating KVM, Xen, or Linux
+ container guests using the **libvirt** hypervisor management library. Most
+ options are not required. Minimum requirements are **--name**, **--memory**,
+ guest storage (**--disk** or **--filesystem**), and an install option.
+
+### Common Options 
 | Switch            | Description                                                 |
 | ----------------- | ----------------------------------------------------------- |
-| -n, --name        | Sets the name for the VM.                                   |
+| --connect         | Connect to a non-default hypervisor.                        |
+| --name            | Sets the name for the VM.                                   |
 | --vcpus           | Configures the number of virtual CPUs.                      |
-| -r, --ram         | Configures the amount of RAM in MB.                         |
+| --memory          | Memory to allocate for the guest, in MiB.                   |
 | --disk            | Defines the virtual disk.                                   |
-| -l, --location    | Specifies the directory or URL with the installation files. |
+| --location        | Specifies the directory or URL with the installation files. |
 | --graphics        | Specifies the graphical display settings of the guest.      |
-| -x, --extra-args= | Includes extra data, such as the URL of a Kickstart file.   |
+| --extra-args      | Includes extra data, such as the URL of a Kickstart file.   |
+#### --connect
+Connect to a non-default hypervisor. If this isn't specified, libvirt will try 
+ and choose the most suitable default.
+
+Some valid options here are:
+```
+--connect qemu:///system
+```
+For creating KVM and QEMU guests to be run by the system libvirtd instance.
+ This is the default mode that virt-manager uses, and what most KVM users want.
+
+```
+--connect qemu:///session
+```
+For creating KVM and QEMU guests for libvirtd running as the regular user.
+
+```
+--connect xen:///
+```
+For connecting to Xen.
+```
+--connect lxc:///
+```
+For creating linux containers.
+#### --name
+#### --vcpus
+#### --memory
+#### --disk
+#### --location
+#### --graphics
+#### --extra-args
