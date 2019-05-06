@@ -82,22 +82,22 @@ Some valid options here are:
 For creating KVM and QEMU guests to be run by the system libvirtd instance.
  This is the default mode that virt-manager uses, and what most KVM users want.
 ```
-virt-install --connect qemu:///system [OPTIONS]...
+# virt-install --connect qemu:///system [OPTIONS]...
 ```
 ##### qemu:///session
 For creating KVM and QEMU guests for libvirtd running as the regular user.
 ```
-virt-install --connect qemu:///session [OPTIONS]...
+# virt-install --connect qemu:///session [OPTIONS]...
 ```
 ##### xen:///
 For connecting to Xen.
 ```
-virt-install --connect xen:/// [OPTIONS]...
+# virt-install --connect xen:/// [OPTIONS]...
 ```
 ##### lxc:///
 For creating linux containers.
 ```
-virt-install --connect lxc:/// [OPTIONS]...
+# virt-install --connect lxc:/// [OPTIONS]...
 ```
 #### --name
 Name of the new guest virtual machine instance. This must be unique amongst all 
@@ -107,12 +107,12 @@ Name of the new guest virtual machine instance. This must be unique amongst all
 #### --vcpus
 Number of virtual cpus to configure for the guest. 
 ```
-virt-install --vcpus 2 [OPTIONS]...
+# virt-install --vcpus 2 [OPTIONS]...
 ```
 If 'maxvcpus' is specified, the guest will be able to hotplug up to MAX vcpus 
  while the guest is running, but will startup with VCPUS.
 ```
-virt-install --vcpus 2,maxvcpus=4 [OPTIONS]...
+# virt-install --vcpus 2,maxvcpus=4 [OPTIONS]...
 ```
 If 'cpuset' is set, the guest is told which physical cpus it can use. 'cpuset' 
  is a comma separated list of numbers, which can also be specified in ranges or 
@@ -120,21 +120,22 @@ If 'cpuset' is set, the guest is told which physical cpus it can use. 'cpuset'
 
 Use processors 1,2,4,5 and 8:
 ```
-virt-install --vcpus 2,cpuset=1-5,^3,8 [OPTIONS]...
+# virt-install --vcpus 2,cpuset=1-5,^3,8 [OPTIONS]...
 ```
 Use processors 0,2,3 and 5 with 'maxvcpus' set:
 ```
-virt-install --vcpus 2,maxvcpus=4,cpuset=0,2,3,5 [OPTIONS]...
+# virt-install --vcpus 2,maxvcpus=4,cpuset=0,2,3,5 [OPTIONS]...
 ```
 #### --memory
 Memory to allocate for the guest, in MiB. This deprecates the -r/--ram option.
  Sub options are available, like 'maxmemory', 'hugepages', 'hotplugmemorymax' 
  and 'hotplugmemoryslots'.
 #### --disk
-Specifies media to use as storage for the guest, with various options. The general
- format of a disk string is:
+Specifies media to use as storage for the guest, with various options. 
+
+The general format of a disk string is:
 ```
-virt-install --disk opt1=val1,opt2=val2,... [OPTIONS]...
+# virt-install --disk opt1=val1,opt2=val2,... [OPTIONS]...
 ```
 #### --location
 Distribution tree installation source. virt-install can recognize certain distribution 
@@ -147,7 +148,7 @@ Specifies the graphical display configuration. This does not configure any virtu
 
 General format of a graphical string is:
 ```
-virt-install --graphics TYPE,opt1=arg1,opt2=arg2,... [OPTIONS]...
+# virt-install --graphics TYPE,opt1=arg1,opt2=arg2,... [OPTIONS]...
 ```
 #### --extra-args
 Additional kernel command line arguments to pass to the installer when performing 
