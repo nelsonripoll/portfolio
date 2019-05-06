@@ -78,21 +78,24 @@ Connect to a non-default hypervisor. If this isn't specified, libvirt will try
  and choose the most suitable default.
 
 Some valid options here are:
+##### qemu:///system
 ```
 --connect qemu:///system
 ```
 For creating KVM and QEMU guests to be run by the system libvirtd instance.
  This is the default mode that virt-manager uses, and what most KVM users want.
 
+##### qemu:///session
 ```
 --connect qemu:///session
 ```
 For creating KVM and QEMU guests for libvirtd running as the regular user.
-
+##### xen:///
 ```
 --connect xen:///
 ```
 For connecting to Xen.
+##### lxc:///
 ```
 --connect lxc:///
 ```
