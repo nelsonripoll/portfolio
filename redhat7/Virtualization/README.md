@@ -127,7 +127,28 @@ Use processors 0,2,3 and 5 with 'maxvcpus' set:
 virt-install --vcpus 2,maxvcpus=4,cpuset=0,2,3,5 [OPTIONS]...
 ```
 #### --memory
+Memory to allocate for the guest, in MiB. This deprecates the -r/--ram option.
+ Sub options are available, like 'maxmemory', 'hugepages', 'hotplugmemorymax' 
+ and 'hotplugmemoryslots'.
 #### --disk
+Specifies media to use as storage for the guest, with various options. The general
+ format of a disk string is:
+```
+virt-install --disk opt1=val1,opt2=val2,... [OPTIONS]...
+```
 #### --location
+Distribution tree installation source. virt-install can recognize certain distribution 
+ trees and fetches a bootable kernel/initrd pair to launch the install.
 #### --graphics
+Specifies the graphical display configuration. This does not configure any virtual 
+ hardware, just how the guest's graphical display can be accessed. Typically the 
+ user does not need to specify this option, virt-install will try and choose a 
+ useful default, and launch a suitable connection.
+
+General format of a graphical string is:
+```
+virt-install --graphics TYPE,opt1=arg1,opt2=arg2,... [OPTIONS]...
+```
 #### --extra-args
+Additional kernel command line arguments to pass to the installer when performing 
+ a guest install from "--location".
