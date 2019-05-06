@@ -105,28 +105,27 @@ Name of the new guest virtual machine instance. This must be unique amongst all
  active. To re- define an existing guest, use the virsh(1) tool to shut it down 
  ('virsh shutdown') & delete ('virsh undefine') it prior to running "virt-install".
 #### --vcpus
-Number of virtual cpus to configure for the guest. If 'maxvcpus' is specified, 
- the guest will be able to hotplug up to MAX vcpus while the guest is running, 
- but will startup with VCPUS.
-
-CPU topology can additionally be specified with sockets, cores, and threads. If 
- values are omitted, the rest will be autofilled preferring sockets over cores 
- over threads.  
-
-'cpuset' sets which physical cpus the guest can use. "CPUSET" is a comma separated 
- list of numbers, which can also be specified in ranges or cpus to exclude.
-
-Example:
+Number of virtual cpus to configure for the guest. 
 ```
-  0,2,3,5     : Use processors 0,2,3 and 5
-  1-5,^3,8    : Use processors 1,2,4,5 and 8
+virt-install --vcpus 2 [OPTIONS]...
 ```
-If the value 'auto' is passed, virt-install attempts to automatically determine 
- an optimal cpu pinning using NUMA data, if available.
+If 'maxvcpus' is specified, the guest will be able to hotplug up to MAX vcpus 
+ while the guest is running, but will startup with VCPUS.
+```
+virt-install --vcpus 2,maxvcpus=4 [OPTIONS]...
+```
+If 'cpuset' is set, the guest is told which physical cpus it can use. 'cpuset' 
+ is a comma separated list of numbers, which can also be specified in ranges or 
+ cpus to exclude.
 
-Use --vcpus=? to see a list of all available sub options. Complete details at 
- [libvirt.org](http://libvirt.org/formatdomain.html#elementsCPUAllocation)
-
+Use processors 1,2,4,5 and 8:
+```
+virt-install --vcpus 2,cpuset=1-5,^3,8 [OPTIONS]...
+```
+Use processors 0,2,3 and 5 with 'maxvcpus' set:
+```
+virt-install --vcpus 2,maxvcpus=4,cpuset=0,2,3,5 [OPTIONS]...
+```
 #### --memory
 #### --disk
 #### --location
