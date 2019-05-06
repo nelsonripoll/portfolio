@@ -79,27 +79,26 @@ Connect to a non-default hypervisor. If this isn't specified, libvirt will try
 
 Some valid options here are:
 ##### qemu:///system
+For creating KVM and QEMU guests to be run by the system libvirtd instance.
+ This is the default mode that virt-manager uses, and what most KVM users want.
 ```
 virt-install --connect qemu:///system [OPTIONS]...
 ```
-For creating KVM and QEMU guests to be run by the system libvirtd instance.
- This is the default mode that virt-manager uses, and what most KVM users want.
-
 ##### qemu:///session
+For creating KVM and QEMU guests for libvirtd running as the regular user.
 ```
 virt-install --connect qemu:///session [OPTIONS]...
 ```
-For creating KVM and QEMU guests for libvirtd running as the regular user.
 ##### xen:///
+For connecting to Xen.
 ```
 virt-install --connect xen:/// [OPTIONS]...
 ```
-For connecting to Xen.
 ##### lxc:///
+For creating linux containers.
 ```
 virt-install --connect lxc:/// [OPTIONS]...
 ```
-For creating linux containers.
 #### --name
 #### --vcpus
 #### --memory
