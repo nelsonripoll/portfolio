@@ -153,3 +153,81 @@ General format of a graphical string is:
 #### --extra-args
 Additional kernel command line arguments to pass to the installer when performing 
  a guest install from "--location".
+### Examples
+Install a Fedora 9 plain QEMU guest, using LVM partition, virtual networking, 
+ booting from PXE, using VNC server/viewer, with virtio-scsi disk:
+```
+  # virt-install \
+       --connect qemu:///system \
+       --name demo \
+       --memory 500 \
+       --disk path=/dev/HostVG/DemoVM,bus=scsi \
+       --controller virtio-scsi \
+       --network network=default \
+       --virt-type qemu \
+       --graphics vnc \
+       --os-variant fedora9
+```
+Run a Live CD image under Xen fullyvirt, in diskless environment:
+```
+  # virt-install \
+       --hvm \
+       --name demo \
+       --memory 500 \
+       --disk none \
+       --livecd \
+       --graphics vnc \
+       --cdrom /root/fedora7live.iso
+```
+Run /usr/bin/httpd in a linux container guest (LXC). Resource usage is capped at 
+512 MiB of ram and 2 host cpus:
+```
+  # virt-install \
+        --connect lxc:/// \
+        --name httpd_guest \
+        --memory 512 \
+        --vcpus 2 \
+        --init /usr/bin/httpd
+```
+Start a linux container guest(LXC) with a private root filesystem, using /bin/sh 
+ as init. Container's root will be under host dir /home/LXC. The host dir "/home/test" 
+ will be mounted at "/mnt" dir inside container:
+```
+  # virt-install \
+        --connect lxc:/// \
+        --name container \
+        --memory 128 \
+        --filesystem /home/LXC,/ \
+        --filesystem /home/test,/mnt \
+        --init /bin/sh
+```
+Install a paravirtualized Xen guest, 500 MiB of RAM, a 5 GiB of disk, and Fedora 
+ Core 6 from a web server, in text-only mode, with old style --file options:
+```
+  # virt-install \
+       --paravirt \
+       --name demo \
+       --memory 500 \
+       --disk /var/lib/xen/images/demo.img,size=6 \
+       --graphics none \
+       --location http://download.fedora.redhat.com/pub/fedora/linux/core/6/x86_64/os/
+```
+Create a guest from an existing disk image 'mydisk.img' using defaults for the 
+ rest of the options.
+```
+  # virt-install \
+       --name demo \
+       --memory 512 \
+       --disk /home/user/VMs/mydisk.img \
+       --import
+```
+Start serial QEMU ARM VM, which requires specifying a manual kernel.
+```
+  # virt-install \
+       --name armtest \
+       --memory 1024 \
+       --arch armv7l --machine vexpress-a9 \
+       --disk /home/user/VMs/myarmdisk.img \
+       --boot kernel=/tmp/my-arm-kernel,initrd=/tmp/my-arm-initrd,dtb=/tmp/my-arm-dtb,kernel_args="console=ttyAMA0 rw root=/dev/mmcblk0p3" \
+       --graphics none
+```
