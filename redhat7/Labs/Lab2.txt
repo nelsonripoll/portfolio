@@ -1,7 +1,0 @@
-Lab 2
-
-In this lab, you'll clone the system created in Lab 1. Use the techniques discussed in this chapter to clone that system. The process can be completed either at the command line with the virt-clone command or with the Virtual Machine Manager.
-
-In addition, when rebooting the system, you'll want to set this system up as the clone1.example.org system on the 192.168.100.50 IP address. You can substitute a different IP address as long as it's on a different network from the server1.example.com system.
-
-When a system is cloned, it carries everything from the previous system. So the first time you boot a cloned system, it's best to boot it into the rescue target, which does not start networking. For more information on systemd targets and network configuration, see Chapters 3 and 5.

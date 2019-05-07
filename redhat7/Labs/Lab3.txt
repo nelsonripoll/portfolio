@@ -1,3 +1,0 @@
-Lab 3
-
-Use the virt-install command to create a new system. Use the model described in Chapter 1 for the tester1.example.com system, with an IP address of 192.168.122.150.

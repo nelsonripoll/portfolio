@@ -1,3 +1,0 @@
-Lab 5
-
-In this lab, you'll modify the Kickstart file created on the server1.example.com VM in Labs 1 and 4, for use by the virt-install command. Unless you've already created it, the system will be outsider1.example.org on IP address 192.168.100.100. (If that IP address network is in use by another component such as a cable modem, another IP address such as 192.168.101.100 is acceptable.)
