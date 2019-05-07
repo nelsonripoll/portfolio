@@ -1,5 +1,11 @@
 # Labs
 
+| System    | Hostname              | Network          | IP              |
+| --------- | --------------------- | ---------------- | --------------- |
+| server1   | server1.example.com   | 192.168.122.0/24 | 192.168.122.50  |
+| tester1   | tester1.example.com   | 192.168.122.0/24 | 192.168.122.150 |
+| outsider1 | outsider1.example.org | 192.168.100.0/24 | 192.168.100.100 |
+
 ## Lab 1
 In this lab, you will install RHEL to create a basic server on a KVM-based VM.
  You will need sufficient room for one hard disk of at least 16GB (with 
