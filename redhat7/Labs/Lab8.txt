@@ -1,0 +1,23 @@
+Lab 8
+
+In this lab, you'll use the commands described at the end of Chapter 2 to test connections to available services. If you've created the network installation servers described in Chapter 1, there will be at least FTP and HTTP servers active on those systems. The default ports for these services are 21 and 80, respectively. Try the telnet localhost 21 command on a local system, where the vsFTP service is active. Look at the following output:
+
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+220 (vsFTPd 3.0.2)
+
+Now exit from the telnet session. Confirm the IP address of the local system with the ip addr show dev virbr0 command. It should be an address such as 192.168.122.1. Log in to a remote VM such as tester1.example.org with a command such as ssh root@192.168.122.150. Now try the same command again from that remote system; for example, for the server1.example.com system on IP address 192.168.122.50, run the following command:
+
+# telnet 192.168.122.50 21
+
+Do you get a "connection refused" or a "no route to host" message? What do each of those messages mean? It's acceptable if you're not certain about how to address this issue now, as firewalls are not covered until Chapter 4.
+
+Now try nmap on the local system with the following command:
+
+# nmap localhost
+
+From the tester1.example.com system, review what other systems on the local network can see from the following command. Pay attention to the differences. That will give you hints on what services are blocked by firewalls. Those firewalls may go beyond what's configured with the firewall-cmd command discussed in Chapter 4.
+
+# nmap 192.168.122.50
+
