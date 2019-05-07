@@ -1,4 +1,4 @@
-# Red Hat Labs
+# Labs
 
 ## Lab 1
 In this lab, you will install RHEL to create a basic server on a KVM-based VM.
@@ -310,3 +310,122 @@ From the tester1.example.com system, review what other systems on the local
 ```
 # nmap 192.168.122.50
 ```
+
+# Lab Answers
+
+## Lab 1
+Although there is nothing truly difficult about this lab, it should increase 
+ your confidence with VMs based on KVM. Once it’s complete, you should be able 
+ to log in to the VM as the root administrative user and run the following 
+ checks on the system: 
+
+1. Check mounted filesystems, along with the space available. The following 
+ commands should confirm those filesystems that are mounted, along with the 
+ free space available on the associated volumes:
+ ```
+ # mount
+ # df -m
+ ```
+
+2. Assuming you have a good connection to the Internet and a subscription to 
+ the Red Hat Portal, make sure the system is up to date. If you’re using a 
+ rebuild distribution, access to their public repositories is acceptable. In 
+ either case, run the following command to make sure the local system is up to 
+ date:
+ ```
+ # yum update
+ ```
+
+This lab confirms your ability to “install Red Hat Enterprise Linux systems as 
+ virtual guests.”
+
+
+## Lab 2
+Remember, this and all future labs in this book can be found on the DVD that 
+ comes with this book. Labs 2 through 8 can be found in the Chapter2/ 
+ subdirectory of that DVD.  
+
+One of the issues with system cloning is how it includes the hardware MAC 
+ address of any network cards. Such conflicts can lead to problems on a network. 
+ So not only would you have to change the IP address, but you may also need to 
+ ensure that a unique hardware address is assigned to the given virtual network 
+ adapter. Because of such issues, KVM normally sets up a different hardware MAC 
+ address for a cloned system. For example, if the original system had an eth0 
+ network card with one hardware address, the cloned system would have a network 
+ card with a different hardware address. 
+
+If this seems like too much trouble, feel free to delete the cloned system. 
+ After all, there is no reference to VM cloning in the RHCSA requirements. 
+ However, it may be helpful to have a different backup system.  And that’s an 
+ excellent opportunity to practice the skills gained in Lab 4 with Kickstart 
+ installations.  
+
+## Lab 3
+
+If you haven’t yet set up the four different VMs suggested in Chapter 1 (three 
+ VMs and a backup), this is an excellent opportunity to do so. One way to do 
+ this is with the virt-install command. Specify the following information: 
+*  Allocated RAM ( --ram) in megabytes, which should be at least 512.  
+*  The path to the virtual disk file ( --disk), which could be the same as that 
+ virtual disk created in Lab 2, and its size in gigabytes, if that file doesn’t 
+ already exist.  
+*  The URL ( --location) for the FTP installation server created in Chapter 1, 
+ Lab 2. Alternatively, you could use the HTTP installation server also discussed 
+ in Chapter 1.  
+*  The OS type (--os-type= linux) and variant (--os-variant= rhel7).
+
+You can now complete this installation normally or run a variation of that installation in Lab 5.
+
+
+## Lab 4
+If you’re not experienced with Kickstart configuration, some trial and error 
+ may be required. But it’s best to run into problems now and not during a Red 
+ Hat exam or on the job. If you’re able to set up a Kickstart file that can be 
+ used to install a system without intervention, you’re ready to address this 
+ challenge on the RHCSA exam.  One common problem relates to virtual disks that 
+ have just been created. They must be initialized first; that’s the purpose of 
+ the --initlabel switch to the clearpart directive.
+
+
+## Lab 5
+If you’ve recently run a Kickstart installation for the first time, it’s best 
+ to do it again. If you practice now, it means you’ll be able to set up a 
+ Kickstart installation faster during an exam. And that’s just the beginning.
+ Imagine the confidence you’ll have if your boss needs a couple of dozen VMs 
+ with the same software and volumes. Assuming the only differences are hostname 
+ and network settings, you’ll be able to accomplish this task fairly quickly.
+ If you can set up a Kickstart installation from the command line with the 
+ virt-install command, it’ll be a lot easier to set it up on a remote virtual 
+ host. You’ll be able to configure new systems from remote locations, thus 
+ increasing your value in the workplace. If you haven’t yet set up the four VMs 
+ suggested in Chapter 1 (three as test systems, one as a backup), this is your 
+ opportunity to do so.  tall , you’ll need to use regular command switches. As 
+ you’re not allowed to bring this book into an exam, try to perform this lab 
+ without referring to the main body of this chapter. You’ll be able to refer to 
+ the man page for the virt-install command for all of the important switches. 
+ Be sure to put the ks= directive along with the URL of the Kickstart file 
+ within quotes. Success is the installation of a new system.
+
+
+## Lab 6
+This lab is designed to increase your understanding of the use of the ssh 
+ command as a client. The encryption performed should be transparent, and will 
+ not affect any commands used through an SSH connection to administer remote 
+ systems.
+
+
+## Lab 7
+This lab is somewhat critical with respect to several different RHCSA 
+ objectives. Once you understand the process, the actual tasks are deceptively 
+ simple. After completing this lab, you should have confidence in your abilities 
+ to do the following: 
+*   Start and stop virtual machines.  
+*   Configure systems to launch virtual machines at boot.  
+The lab also suggests one method for remotely accessing a VM.
+
+
+## Lab 8
+This lab is designed to increase your familiarity with two important network 
+ troubleshooting tools, telnet and nmap . Network administrators with some 
+ Linux experience may prefer other tools. If you’re familiar with other tools 
+ such as nc , great. It’s the results that matter.
