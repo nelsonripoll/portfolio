@@ -1,4 +1,83 @@
 # Kickstart
+## Basic Configuration
+```
+# System language
+lang en_US.UTF-8
+
+# Keyboard layouts
+keyboard --vckeymap=us --xlayouts='us'
+
+# System timezone
+timezone America/Chicago --nontp
+```
+## Installation Method
+You must specify whether you are installing or upgrading the system.
+### Install
+You must specify the type of installation from cdrom, harddrive, nfs, liveimg,
+ or url (for FTP, HTTP, or HTTPS installations). The **install** command and the 
+ installation method command must be on seperate lines. For example:
+```
+install
+liveimg --url=file:///images/install/squashfs.img --noverifyssl
+```
+
+Install from the first optical drive on the system.
+```
+install
+cdrom
+```
+
+Install from an installation tree or full installation ISO image on a local
+ drive. The drive must contain a file system the installation program can mount:
+ ext2, ext3, ext4, vfat, or xfs.
+*   --biospart= - BIOS partition to install from
+*   --partition= - partition to install from
+*   --dir= - directory containing the __variant__ directory of the installation
+ tree, or the ISO image of the full installation DVD
+```
+install
+harddrive --partition=hbd2 --dir=/tmp/install-tree
+```
+
+Install from a disk image instead of packages. The image can be the squashfs.img
+ file from a live ISO image, a compressed tar file (.tar, .tbz, .tgz, .txz, 
+ .tar.bz2, .tar.gz, or .tar.xz), or any file system that the installation media
+ can mount. Supported file systems are ext2, ext3, ext4, vfat, and xfs.
+*   --url=
+*   --proxy=
+*   --checksum=
+*   --noverifyssl
+```
+install
+liveimg --url=file:///images/install/squashfs.img --noverifyssl
+```
+
+### Upgrade
+```
+upgrade
+```
+## Boot Loader Options
+## Partition Information
+## Network Configuration
+## Authentication
+## Firewall Configuration
+```
+firewall --enabled --http --ftp --ssh
+```
+## Display Configuration
+## Package Selection
+## Pre-Installation Script
+## Post-Installation Script
+
+
+
+
+
+
+
+
+
+
 ## Mount ISO
 ```
 # mount -o loop CentOS7.iso /media
