@@ -1,4 +1,7 @@
 # Kickstart
+[Red Hat Kickstart Syntax](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/installation_guide/sect-kickstart-syntax)
+
+
 ## Basic Configuration
 ```
 # system language
@@ -10,22 +13,28 @@ keyboard --vckeymap=us --xlayouts='us'
 # system timezone
 timezone America/Chicago --nontp
 ```
+
+
 ## Installation Method
 You must specify whether you are installing or upgrading the system.
 ```
+# install new system
 install
-#  OR  #
+
+# upgrade current system
 upgrade
 ```
 You must specify the type of installation from cdrom, harddrive, nfs, liveimg,
  or url (for FTP, HTTP, or HTTPS installations). The **install** command and the 
  installation method command must be on seperate lines. For example:
 ```
+install
 liveimg --url=file:///images/install/squashfs.img --noverifyssl
 ```
 
 Install from the first optical drive on the system.
 ```
+install
 cdrom
 ```
 Install from an installation tree or full installation ISO image on a local
@@ -36,6 +45,7 @@ Install from an installation tree or full installation ISO image on a local
 *   --dir= - Directory containing the variant directory of the installation
  tree, or the ISO image of the full installation DVD.
 ```
+install
 harddrive --partition=hbd2 --dir=/tmp/install-tree
 ```
 Install from a disk image instead of packages. The image can be the squashfs.img
@@ -50,6 +60,7 @@ Install from a disk image instead of packages. The image can be the squashfs.img
  file, used for verification.
 *   --noverifyssl - Disable SSL verification when connecting to an HTTPS server.
 ```
+install
 liveimg --url=file:///images/install/squashfs.img --checksum=03825f567f17705100de3308a20354b4d81ac9d8bed4bb4692b2381045e56197 --noverifyssl
 ```
 Install from the NFS server specified.
@@ -65,17 +76,72 @@ Install from an installation tree on a remote server using FTP, HTTP, or HTTPS.
  the installation.
 *   --noverifyssl - Disable SSL verification when connecting to an HTTPS server.
 ```
+install
 url --url http://server/path
 ```
+
+
 ## Boot Loader Options
+
+
 ## Partition Information
+
+
 ## Network Configuration
+
+
 ## Authentication
+
+
 ## Firewall Configuration
+Specify the firewall configuration for the installed system.
 ```
-firewall --enabled --http --ftp --ssh
+firewall --enabled|--disabled device [options] 
 ```
+*   --enabled or --enable - Reject incoming connections that are not in response
+ to outbound requests, such as DNS replies or DHCP requests. If access to
+ services running on this machine is needed, you can choose to allow specific
+ services through the firewall.
+*   --disabled or --disable - Do not configure any iptables rules.
+*   --trust= - Listing a device here, such as em1, allows all traffic coming
+ to and from that device to go through the firewall. To list more than one
+ device, use --trust em1 --trust em2. Do NOT use a comma-seperated format such
+ as --trust em1, em2.
+*   incoming - Replace with one or more of the following to allow the specified
+ services through the firewall.
+    * --ssh
+    * --smtp
+    * --http
+    * --ftp
+*   --port= - You can specify that ports be allowed through the firewall using
+ the port:protocol format. For example, to allow IMAP access through your
+ firewall, specify imap:tcp. Numeric ports can also be explicitly; for example,
+ to allow UDP packets on port 1234 through, specify 1234:udp. To specify
+ multiple ports, separate them by commas.
+*   --service= - This option provides a higher-level way to allow services
+ through the firewall. Some services (like cups, avahi, and so on) require
+ multiple ports to be open or other special configuration in order for the
+ service to work. You can specify each individual port with the --port option,
+ or specify --service= and open them all at once.
+
+Disabled Firewall
+```
+firewall --disabled
+```
+
+Enabled Firewall Example
+```
+firewall --enabled --trust em1 --trust em2 --http --ftp --ssh --telnet --smtp --port=9999 --service="https cups avahi"
+```
+
+   
 ## Display Configuration
+
+
 ## Package Selection
+
+
 ## Pre-Installation Script
+
+
 ## Post-Installation Script
