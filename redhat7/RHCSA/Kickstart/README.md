@@ -45,8 +45,13 @@ Install from an installation tree or full installation ISO image on a local
 *   --dir= - Directory containing the variant directory of the installation
  tree, or the ISO image of the full installation DVD.
 ```
+# install from tree
 install
-harddrive --partition=hbd2 --dir=/tmp/install-tree
+harddrive --partition=hbd2 --dir=/path/to/dir
+
+# install from iso
+install
+harddrive --partition=hbd2 --dir=/path/to/file.iso
 ```
 Install from a disk image instead of packages. The image can be the squashfs.img
  file from a live ISO image, a compressed tar file (.tar, .tbz, .tgz, .txz, 
@@ -67,6 +72,10 @@ Install from the NFS server specified.
 *   --server= - Server from which to install (host name or IP).
 *   --dir= - Directory containing the variant directory of the installation tree.
 *   --opts= - Mount options to use for mounting the NFS export. (optional)
+```
+install
+nfs --server=192.168.122.1 --dir=/path/to/dir
+```
 
 Install from an installation tree on a remote server using FTP, HTTP, or HTTPS.
 *   --url= - The location to install from. Supported protocols are HTTP, HTTPS,
