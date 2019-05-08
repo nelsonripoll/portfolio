@@ -12,24 +12,23 @@
 Associated kernel modules must be loaded before KVM can work.  If the KVM modules 
  are properly loaded, you'll see one of the following outputs based on your 
  hardware configuration.
-#### Intel Hardware
 ```
 # lsmod | grep kvm
-
+```
+If you are using an Intel processor:
+```
 Module    Size    Used by
 kvm_intel 12345   0
 kvm       12345   1 kvm_intel
 ```
-#### AMD Hardware
+If you are using an AMD processor:
 ```
-# lsmod | grep kvm
-
 Module    Size    Used by
 kvm_amd   12345   0
 kvm       12345   1 kvm_amd  
 ```
 ### Load Modules
-To make sure the hardware is suitable, make sure the **vmx** (Intel) or **svm**
+To make sure the processor is suitable, make sure the **vmx** (Intel) or **svm**
  (AMD) flags are loaded.
 ```
 # cat /proc/cpuinfo | grep 'vmx\|svm'
@@ -37,11 +36,11 @@ To make sure the hardware is suitable, make sure the **vmx** (Intel) or **svm**
 If neither flag is found, you may need some additional configuration in the
  system BIOS or UEFI menu.
 If one of the flags exists, load the module based on the hardware.
-#### Intel Hardware
+To load the module for an Intel processor:
 ```
 # modprobe kvm_intel
 ```
-#### AMD Hardware
+To load the module for an AMD processor:
 ```
 # modprobe kvm_amd
 ```
