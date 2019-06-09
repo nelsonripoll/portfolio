@@ -81,43 +81,10 @@ Commands:
   ...
 ```
 
-The ```docker run``` command is now part of the container management command.
-
-```
-# docker container run hello-world 
-
-Unable to find image 'hello-world:latest' locally
-latest: Pulling from library/hello-world
-1b930d010525: Pull complete
-Digest: sha256:0e11c388b664df8a27a901dce21eb89f11d8292f7fca1b3e3c4321bf7897bffe
-Status: Downloaded newer image for hello-world:latest
-
-Hello from Docker!
-This message shows that your installation appears to be working correctly.
-
-To generate this message, Docker took the following steps:
- 1. The Docker client contacted the Docker daemon.
- 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
-    (amd64)
- 3. The Docker daemon created a new container from that image which runs the
-    executable that produces the output you are currently reading.
- 4. The Docker daemon streamed that output to the Docker client, which sent it
-    to your terminal.
-
-To try something more ambitious, you can run an Ubuntu container with:
- $ docker run -it ubuntu bash
-
-Share images, automate workflows, and more with a free Docker ID:
- https://hub.docker.com/
-
-For more examples and ideas, visit:
- https://docs.docker.com/get-started/
-```
-
 To see the commands that belong to each management command, run ```docker [management command] --help```.
 
 ```
-docker system --help
+# docker system --help
 
 Usage:	docker system COMMAND
 
@@ -130,4 +97,77 @@ Commands:
   prune       Remove unused data
 
 Run 'docker system COMMAND --help' for more information on a command.
+```
+
+
+### Image Management
+
+We can pull images from a docker registry by running the ```docker image pull```
+ command. The default docker registry is [Docker Hub](https://hub.docker.com).
+
+```
+# docker image pull --help
+
+Usage:	docker image pull [OPTIONS] NAME[:TAG|@DIGEST]
+
+Pull an image or a repository from a registry
+
+Options:
+  -a, --all-tags                Download all tagged images in the repository
+      --disable-content-trust   Skip image verification (default true)
+```
+
+Pull the [official hello-world image](https://hub.docker.com/_/hello-world):
+
+```
+# docker image pull hello-world
+```
+
+To view docker images that have been pulled to your system:
+
+```
+# docker image ls
+```
+
+If I wanted to add this docker image to [my docker hub repo](https://hub.docker.com/u/nelsonripoll),
+ I would need to tag it with my docker hub username then push to docker hub. Afterwards,
+ the image can be found [here](https://hub.docker.com/r/nelsonripoll/hello-world).
+
+```
+# docker image tag hello-world nelsonripoll/hello-world
+# docker image push nelsonripoll/hello-world
+```
+
+If I wanted to remove the hello-world image tag from my system, I would first need
+ to run the ```docker image ls``` command and find the tag I want to remove.
+
+```
+# docker image ls
+REPOSITORY                 TAG                 IMAGE ID            CREATED             SIZE
+hello-world                latest              fce289e99eb9        5 months ago        1.84kB
+nelsonripoll/hello-world   latest              fce289e99eb9        5 months ago        1.84kB
+
+# docker image rm nelsonripoll/hello-world
+Untagged: nelsonripoll/hello-world:latest
+
+# docker image ls
+REPOSITORY                 TAG                 IMAGE ID            CREATED             SIZE
+hello-world                latest              fce289e99eb9        5 months ago        1.84kB
+```
+
+This will not delete image from my user's repository on docker hub. I can still
+ pull the image. In order to remove it completely, I would need to delete the
+ repo from the docker hub website.
+
+```
+# docker image pull nelsonripoll/hello-world
+Using default tag: latest
+latest: Pulling from nelsonripoll/hello-world
+Digest: sha256:92c7f9c92844bbbb5d0a101b22f7c2a7949e40f8ea90c8b3bc396879d95e899a
+Status: Downloaded newer image for nelsonripoll/hello-world:latest
+
+# docker image ls
+REPOSITORY                 TAG                 IMAGE ID            CREATED             SIZE
+hello-world                latest              fce289e99eb9        5 months ago        1.84kB
+nelsonripoll/hello-world   latest              fce289e99eb9        5 months ago        1.84kB
 ```
