@@ -1,4 +1,4 @@
-# Configure File Sharing
+# Configure Simple File Sharing
 Apache web server is the default HTTP server and vsFTP is the default corresponding
  FTP server. Configuration is simple and SELinux should be enabled.
 
