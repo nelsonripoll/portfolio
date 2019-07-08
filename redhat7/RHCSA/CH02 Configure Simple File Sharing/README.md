@@ -122,9 +122,34 @@ To ensure the contents of the /var/www/html/inst directory has the correct
 # chcon -R --reference=/var/www/html /var/www/html/inst
 ```
 
-Run a similar command for the /var/ftp/pub/inst directory:
+The SELinux context for /var/www/html is httpd_sys_content_t and can be applied 
+ directly:
+
+```
+# chcon -R -t httpd_sys_content_t /var/www/html/inst
+```
+
+To ensure the contents of the /var/ftp/pub/inst directory has the correct
+ SELinux context, run the following command:
+
 ```
 # chcon -R --reference=/var/ftp/pub /var/ftp/pub/inst
+```
+
+The SELinux context for /var/ftp/pub is public_content_t and can be applied 
+ directly:
+
+```
+# chcon -R -t public_content_t /var/ftp/pub/inst
+```
+
+To view the context of a file or directly, you can use the **-Z** flag for the
+ **ls** command:
+ 
+```
+# ls -Z /var/www/
+drwxr-xr-x. root root system_u:object_r:httpd_sys_script_exec_t:s0 cgi-bin
+drwxr-xr-x. root root system_u:object_r:httpd_sys_content_t:s0 html
 ```
 
 The **-R** switch applies the context recursively and the **--reference=/path/to/dir**
