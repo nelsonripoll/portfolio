@@ -19,10 +19,10 @@ Virtual terminals are defined by the /etc/systemd/logind.conf file. By default,
  virtual terminals but is limited by those allowed for the root administrative
  user in the /etc/securetty file.
 
-To change between virtual terminals, you press the **ALT+F_n_** to move to the
- _n_th virtual terminal. For example, to swith to the 3rd virtual terminal, I
+To change between virtual terminals, you press the __ALT+F*n*__ to move to the
+ *n*th virtual terminal. For example, to swith to the 3rd virtual terminal, I
  would press **ALT+F3**. If I am using a GUI, I would need to use
- **ALT+CTRL+F_n_** to move to the _n_th virtual terminal.
+ __ALT+CTRL+F*n*__ to move to the *n*th virtual terminal.
 
 ## Navigation
 
