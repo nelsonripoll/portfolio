@@ -14,7 +14,7 @@
 
 ### alias
 
-### /dev/tty__#__
+### /dev/tty*#*
 
 
 ## Navigation
