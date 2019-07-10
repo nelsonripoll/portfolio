@@ -100,10 +100,11 @@ With the right switches, __ls__ can be a very powerful tool. The __-a__ switch
  will provide the SELinux contexts of the files and directories.
 
 The __cd *path*__ command is used to change directories. By itself, __cd__ will take
- you to the current user's home directory. It is equivalant to __cd ~__. You can 
- go up one directory using the shortcut *..*. For example, if you are in your 
- user's home directory, using __cd ..__ will take you up one directory to /home.
- __cd__ takes either an absolute path or a relative path as an argument.
+ you to the current user's home directory. It is equivalant to using the tilde as 
+ an argument. You can go up one directory using the *..* shortcut. For example, 
+ if you are in your user's home directory, using __cd ..__ will take you up one 
+ directory to /home. The __cd__ command takes either an absolute path or a relative 
+ path as an argument.
 
 ## File Searches
 
