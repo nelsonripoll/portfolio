@@ -1,8 +1,6 @@
 # Command-Line Essentials
 
-## Shells & Virtual Terminals
-
-### Shells
+## Shells
 
 In Linux, the shell is a command-line interpreter that allows you to interact
  with the operating system. Shells can process commands in various sequences,
@@ -41,13 +39,11 @@ The command line prompt differs between regular users and the root user. A
 
 ```bash
 [user@localhost ~]$
-```
 
-```bash
 [root@localhost ~]#
 ```
 
-### Virtual Terminals
+## Virtual Terminals
 
 Virtual terminals is a conceptual combination of the keyboard and display for a 
  computer user interface. It is a feature in which the system console of the 
@@ -67,12 +63,47 @@ To change between virtual terminals, you press the __ALT+F*n*__ to move to the
 
 ## Navigation
 
-### pwd
+Everything in Linux can be reduced to a file. Directories are special types
+ of files that serve as containers for other files. To navigate and find
+ files, you need some basic commands and concepts to tell you where you are
+ and how to move from directory to directory.
 
-### ls
+The concept that describes where you are in the Linux directory tree is the path.
+ There are two types of path concepts: absolute path and relative path. An
+ absolute path always starts from the root (__/__) directory where a relative
+ path starts from your current location.
 
-### cd
+Another concept to recognize is the tilde (__~__). The tilde represents the 
+ current user's home directory.
 
+The __pwd__ command identifies the current directory. For example, if the user
+ is in the home directory:
+
+```bash
+[username@localhost ~]$ pwd
+/home/username
+```
+
+The __ls__ command will list files and directories in your current location.
+ To view files and directories in another location, simply provide the path as
+ an argument to __ls__:
+
+```bash
+[username@localhost ~]$ ls /path/to/dir
+file1   file2   file3    dir1    dir2
+```
+
+With the right switches, __ls__ can be a very powerful tool. The __-a__ switch
+ will list hidden files. The __-l__ switch will do a long listing and provide
+ extra information for each file and directory, like permissions and the 
+ timestamp it was last modified. Perhaps the most useful switch is __-Z__, which
+ will provide the SELinux contexts of the files and directories.
+
+The __cd *path*__ command is used to change directories. By itself, __cd__ will take
+ you to the current user's home directory. It is equivalant to __cd ~__. You can 
+ go up one directory using the shortcut *..*. For example, if you are in your 
+ user's home directory, using __cd ..__ will take you up one directory to /home.
+ __cd__ takes either an absolute path or a relative path as an argument.
 
 ## File Searches
 
