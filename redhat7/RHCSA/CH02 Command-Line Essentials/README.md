@@ -37,7 +37,7 @@ The command line prompt differs between regular users and the root user. A
  regular user's prompt by default is the username, hostname, and current directory
  followed by a __$__. The root prompt is similar but has a __#__ instead.
 
-```bash
+```
 [user@localhost ~]$
 
 [root@localhost ~]#
@@ -79,7 +79,7 @@ Another concept to recognize is the tilde (__~__). The tilde represents the
 The __pwd__ command identifies the current directory. For example, if the user
  is in the home directory:
 
-```bash
+```
 [username@localhost ~]$ pwd
 /home/username
 ```
@@ -88,7 +88,7 @@ The __ls__ command will list files and directories in your current location.
  To view files and directories in another location, simply provide the path as
  an argument to __ls__:
 
-```bash
+```
 [username@localhost ~]$ ls /path/to/dir
 file1   file2   file3    dir1    dir2
 ```
@@ -117,7 +117,7 @@ The __find__ command searches through directories and subdirectories for a file.
 This will look for all files and directories within the /etc directory with the 
  pattern "httpd" in the name.
 
-```bash
+```
 [root@localhost /]# find /etc -name "*httpd*"
 /etc/systemd/system/multi-user.target.wants/httpd.service
 /etc/sysconfig/httpd
@@ -136,7 +136,7 @@ If you need to locate the binary, or executable, for a shell command, you can
  use the __which__ command. The __which__ command will search the __PATH__
  environment variable for the location of the command given.
 
-```bash
+```
 [root@localhost /]# which ping
 /usr/bin/ping
 ```
@@ -144,7 +144,7 @@ If you need to locate the binary, or executable, for a shell command, you can
 A similar command is __whereis__, which returns the binary location, source 
  and manual page files for the given command.
 
-```bash
+```
 [root@localhost /]# whereis ping
 ping: /usr/bin/ping /usr/share/man/man8/ping.8.gz
 ```
@@ -152,7 +152,7 @@ ping: /usr/bin/ping /usr/share/man/man8/ping.8.gz
 You can view a short description from a command's man page files by using the
  __whatis__ command.
  
-```bash
+```
 [root@localhost /]# whatis ping
 ping (8) - send ICMP ECHO_REQUEST to network hosts
 ```
