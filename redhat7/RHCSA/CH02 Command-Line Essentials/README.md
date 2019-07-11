@@ -106,12 +106,56 @@ The __cd *path*__ command is used to change directories. By itself, __cd__ will 
  directory to /home. The __cd__ command takes either an absolute path or a relative 
  path as an argument.
 
-## File Searches
+## Locating Files & Directories
 
-### find
+The __find__ command searches through directories and subdirectories for a file.
+ The format of the command is __find__ *directory* *pattern*. If you do not
+ specify a directory, it starts at the current directory. The most common
+ option to use is the __-name__ option where it looks for filenames that matches
+ a pattern. 
+ 
+This will look for all files and directories within the /etc directory with the 
+ pattern "httpd" in the name.
 
-### locate
+```bash
+[root@localhost /]# find /etc -name "*httpd*"
+/etc/systemd/system/multi-user.target.wants/httpd.service
+/etc/sysconfig/httpd
+/etc/logrotate.d/httpd
+/etc/httpd
+/etc/httpd/conf/httpd.conf
+```
 
+Sometimes __find__ could take a while, especially if it has to search the entire
+ filesystem. The __locate__ command is instantaneous but the drawback is this
+ command requires a database to be up to date. The database is updated once a
+ day from the /etc/cron.daily/mlocate script. If you need an updated database
+ now, you can use the **updatedb** command or execute the mlocate script early.
+
+If you need to locate the binary, or executable, for a shell command, you can
+ use the __which__ command. The __which__ command will search the __PATH__
+ environment variable for the location of the command given.
+
+```bash
+[root@localhost /]# which ping
+/usr/bin/ping
+```
+
+A similar command is __whereis__, which returns the binary location, source 
+ and manual page files for the given command.
+
+```bash
+[root@localhost /]# whereis ping
+ping: /usr/bin/ping /usr/share/man/man8/ping.8.gz
+```
+
+You can view a short description from a command's man page files by using the
+ __whatis__ command.
+ 
+```bash
+[root@localhost /]# whatis ping
+ping (8) - send ICMP ECHO_REQUEST to network hosts
+```
 
 ## Manage Files & Directories
 
