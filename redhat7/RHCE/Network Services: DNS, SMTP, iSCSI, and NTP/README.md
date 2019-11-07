@@ -190,3 +190,51 @@ ports:
 runner:
   active port: eth1
 ```
+
+## Configure IPv6 Addresses
+
+Working with IPv6 addresses using the network manager is exactly the same as working
+ with IPv4 addresses. Using the NetworkManager command line interface, users can 
+ manually set and test both IPv4 and IPv6 connections.
+
+```
+# ifconfig
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 9001
+        inet 10.0.0.216  netmask 255.255.255.0  broadcast 10.0.0.255
+        inet6 fe80::15:1cff:fe01:8ea5  prefixlen 64  scopeid 0x20<link>
+        ether 02:15:1c:01:8e:a5  txqueuelen 1000  (Ethernet)
+        RX packets 52906  bytes 78401906 (74.7 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 21527  bytes 1590050 (1.5 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+eth1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        ether 02:b2:dc:05:d6:81  txqueuelen 1000  (Ethernet)
+        RX packets 7  bytes 418 (418.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 96  bytes 8192 (8.0 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 96  bytes 8192 (8.0 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+# nmcli con add con-name eth1 type ethernet ifname eth1
+Connection 'eth1' (7321a434-e5d6-4339-b896-982adae19256) successfully added.
+# nmcli con mod eth1 ipv4.addresses '192.168.10.100/24'
+# nmcli con mod eth1 ipv4.method manual
+# nmcli con mod eth1 ipv6.addresses fddb:fe2a:ab1e::c0a8:64/64
+# nmcli con mod eth1 ipv6.method manual
+# nmcli con up eth1
+Connection successfully activated (D-Bus active path: /org/freedesktop/NetworkManager/ActiveConnection/2)
+# ping -I eth1 192.168.10.100
+# ping -I eth1 192.168.10.100
+PING 192.168.10.100 (192.168.10.100) from 192.168.10.100 eth1: 56(84) bytes of data.
+# ping6 -I eth1 fddb:fe2a:ab1e::c0a8:64
+PING fddb:fe2a:ab1e::c0a8:64(fddb:fe2a:ab1e::c0a8:64) from fddb:fe2a:ab1e::c0a8:64 eth1: 56 data bytes
+```
