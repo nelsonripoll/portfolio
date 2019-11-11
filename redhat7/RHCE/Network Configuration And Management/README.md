@@ -233,8 +233,33 @@ Connection 'eth1' (7321a434-e5d6-4339-b896-982adae19256) successfully added.
 # nmcli con up eth1
 Connection successfully activated (D-Bus active path: /org/freedesktop/NetworkManager/ActiveConnection/2)
 # ping -I eth1 192.168.10.100
-# ping -I eth1 192.168.10.100
-PING 192.168.10.100 (192.168.10.100) from 192.168.10.100 eth1: 56(84) bytes of data.
 # ping6 -I eth1 fddb:fe2a:ab1e::c0a8:64
-PING fddb:fe2a:ab1e::c0a8:64(fddb:fe2a:ab1e::c0a8:64) from fddb:fe2a:ab1e::c0a8:64 eth1: 56 data bytes
+```
+
+## Route IP Traffic By Creating Static Routes
+
+```
+# ip route list
+default via 10.0.0.1 dev eth0
+10.0.0.0/24 dev eth0 proto kernel scope link src 10.0.0.235
+169.254.0.0/16 dev eth0 scope link metric 1002
+192.168.33.0 via 192.168.33.1 dev eth1 scope link
+192.168.33.0/24 dev eth1 proto kernel scope link src 192.168.33.1
+# ping google.com
+# traceroute 172.217.13.238
+# ip route add 172.217.13.0/24 via 192.168.33.1 dev eth1
+# ip route list
+default via 10.0.0.1 dev eth0
+10.0.0.0/24 dev eth0 proto kernel scope link src 10.0.0.235
+169.254.0.0/16 dev eth0 scope link metric 1002
+172.217.13.0/24 via 192.168.33.1 dev eth1
+192.168.33.0 via 192.168.33.1 dev eth1 scope link
+192.168.33.0/24 dev eth1 proto kernel scope link src 192.168.33.1
+# ping 172.217.13.238
+# traceroute 172.217.13.238
+# ip route del 172.217.13.0/24 via 192.168.33.1 dev eth1
+# ping 172.217.13.238
+# any net 172.217.13.0 netmask 255.255.255.0 gw 10.0.0.1 dev eth0 
+# ping 172.217.13.238
+# traceroute 172.217.13.238
 ```
