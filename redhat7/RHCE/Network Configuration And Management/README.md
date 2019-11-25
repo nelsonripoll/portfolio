@@ -263,3 +263,18 @@ default via 10.0.0.1 dev eth0
 # ping 172.217.13.238
 # traceroute 172.217.13.238
 ```
+
+## Firewall
+```
+firewall-cmd --list-all-zones
+firewall-cmd --permanent --zone=work --add-source=192.168.122.100
+firewall-cmd --permanent --zone=work --add-service=http
+firewall-cmd --permanent --zone=work --remove-service=http
+firewall-cmd --reload
+
+firewall-cmd --permanent --zone=home --add-rich-rule='rule family=ipv4 source address=192.168.122.100 service name="http" log level=notice prefix="NEW HTTP RULE   " limit value="100/s" accept'
+firewall-cmd --permanent --zone=home --remove-rich-rule='rule family=ipv4 source address=192.168.122.100 service name="http" log level=notice prefix="NEW HTTP RULE   " limit value="100/s" accept'
+
+firewall-cmd --permanent --add-rich-rule='rule family=ipv4 source address=192.168.122.100 forward-port port=443 protocol=tcp to-port=22'
+firewall-cmd --permanent --remove-rich-rule='rule family=ipv4 source address=192.168.122.100 forward-port port=443 protocol=tcp to-port=22'
+```
