@@ -33,13 +33,16 @@ View a list of available predefined services.
 # ls /etc/firewalld/services
 ```
 
-All files will be in **.xml** format. This is an example from the **http.xml**.
+All files will be in **.xml** format.
 ```
 <?xml version="1.0" encoding="utf-8"?>
 <service>
-  <short>WWW (HTTP)</short>
-  <description>HTTP is the protocol used to serve Web pages. If you plan to make your Web server publicly available, enable this option. This option is not required for viewing pages locally or developing Web pages.
-  <port protocol="tcp" port="80" />
+  <short>My Service</short>
+  <description>description</description>
+  <port port="137" protocol="tcp"/>
+  <protocol value="igmp"/>
+  <module name="nf_conntrack_netbios_ns"/>
+  <destination ipv4="224.0.0.251" ipv6="ff02::fb"/>
 </service>
 ```
 
