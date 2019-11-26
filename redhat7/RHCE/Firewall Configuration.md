@@ -8,6 +8,8 @@
 ```
 
 ## Source Management
+If you do not use the *--zone* option, the sources will be added or removed from
+ the default zone.
 ```
 # firewall-cmd --permanent --add-source=192.168.122.100
 # firewall-cmd --permanent --remove-source=192.168.122.100
@@ -15,12 +17,34 @@
 ```
 
 ## Service Management
+If you do not use the *--zone* option, the service will be added or removed from
+ the default zone.
 ```
 # firewall-cmd --list-services
-# firewall-cmd --permanent --add-service=http
-# firewall-cmd --permanent --remove-service=http
+# firewall-cmd --permanent --zone=work --add-service=http
+# firewall-cmd --permanent --zone=work --remove-service=http
 # firewall-cmd --reload
 ```
+
+### Predefined Services
+View a list of available predefined services.
+```
+# ls /usr/lib/firewalld/services
+# ls /etc/firewalld/services
+```
+
+All files will be in *.xml* format. This is an example from the *http.xml*.
+```
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+  <short>WWW (HTTP)</short>
+  <description>HTTP is the protocol used to serve Web pages. If you plan to make your Web server publicly available, enable this option. This option is not required for viewing pages locally or developing Web pages.
+  <port protocol="tcp" port="80" />
+</service>
+```
+
+Files in */usr/lib/firewalld/services* should not be edited, only edit files in
+ */etc/firewalld/services*.
 
 ## Port Management
 ```
