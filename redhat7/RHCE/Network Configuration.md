@@ -1,4 +1,4 @@
-# Networking
+# Network Configuration
 
 ## Network Teaming
 Network Teaming is a method of taking multiple network inferface adapters and combining
