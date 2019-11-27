@@ -237,3 +237,71 @@ Warning: Permanently added 'kdc-server.example.com,fe80::107a:faff:fee6:6ecb%eth
 ```
 
 ### Configure
+#### /etc/krb5.conf
+Uncomment all commented lines.Replace the domain 'EXAMPLE.COM' with the domain 
+ of your environment. Under the `[realms]` section, replace `kerberos.example.com`
+ with the hostname of your kerberos server.
+```
+# Configuration snippets may be placed in this directory as well
+includedir /etc/krb5.conf.d/
+
+[logging]
+ default = FILE:/var/log/krb5libs.log
+ kdc = FILE:/var/log/krb5kdc.log
+ admin_server = FILE:/var/log/kadmind.log
+
+[libdefaults]
+ dns_lookup_realm = false
+ ticket_lifetime = 24h
+ renew_lifetime = 7d
+ forwardable = true
+ rdns = false
+ pkinit_anchors = /etc/pki/tls/certs/ca-bundle.crt
+# default_realm = EXAMPLE.COM
+ default_ccache_name = KEYRING:persistent:%{uid}
+
+[realms]
+# EXAMPLE.COM = {
+#  kdc = kerberos.example.com
+#  admin_server = kerberos.example.com
+# }
+
+[domain_realm]
+# .example.com = EXAMPLE.COM
+# example.com = EXAMPLE.COM
+```
+
+```
+# useradd krbuser
+```
+
+```
+# kadmin
+```
+
+```
+kadmin: addprinc -randkey host/kerb-client.example.com
+kadmin: ktadd host/kerb-client.mylabserver.com
+```
+
+#### /etc/ssh/ssh_config
+Look for `# GSSAPIAuthentication no` and `# GSSAPIDelegateCredentials no`, uncomment
+ these two lines and change the value to yes.
+```
+...
+GSSAPIAuthentication yes
+GSSAPIDelegateCredentials yes
+...
+```
+
+Reload ssh.
+```
+# systemctl reload sshd
+```
+
+Update the kerberos authentication configuration.
+```
+# authconfig --enablekrb5 --update
+# su - krbuser
+$ ssh kdc-server.example.com
+```
