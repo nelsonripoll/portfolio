@@ -4,8 +4,13 @@
 
 ### Networking Basics
 
+#### Simple Example
 ![Simple Example](img/networking-basics/simple-example.png)
+
+#### Larger Example
 ![Larger Example](img/networking-basics/larger-example.png)
+
+#### Components
 ![Components](img/networking-basics/components.png)
 
 ### Networking Traffic
