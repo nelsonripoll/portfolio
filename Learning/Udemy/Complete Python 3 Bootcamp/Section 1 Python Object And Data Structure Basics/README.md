@@ -232,3 +232,74 @@ NoneType
 >>> nestedlist[2][1]
 2
 ```
+
+## Dictionaries
+* Dictionaries are unordered mappings for storing objects using a key-value pair.
+* Key-value pair allows users to quickly grab objects without needing to know an
+ index location: {'key1':'value1', 'key2':'value2'}
+```
+>>> mydictionary = {'key1':'value1', 'key2':'value2'}
+>>> mydictionary['key1']
+'value1'
+>>> storeprices = {'apple': 2.99, 'oranges':1.99}
+>>> storeprices['apple']
+2.99
+>>> mydictionary = {'k1':123, 'k2':[0,1,2], 'k3':{'nestedKey': 100}}
+>>> mydictionary['k3']['nextedKey']
+100
+>>> mydictionary = {'k1':['a','b','c']}
+>>> mydictionary['k1'][0].upper()
+'A'
+>>> mydictionary['k2'] = [1, 2, 3]
+>>> mydictionary
+{'k1': ['a', 'b', 'c'], 'k2': [1, 2, 3]}
+>>> mydictionary.keys()
+dict_keys(['k1', 'k2'])
+>>> mydictionary.values()
+dict_values([['a', 'b', 'c'], [1, 2, 3]])
+>>> mydictionary.items()
+dict_items([('k1', ['a', 'b', 'c']), ('k2', [1, 2, 3]]))
+```
+
+## Tuples
+* Tuples are similar to lists but are immutable, once an element is inside a
+ tuple, it cannot be reassigned.
+* Tuples use parenthesis: (1, 2, 3)
+```
+>>> mytuple = (1, 1, 2, 3)
+>>> type(mytuple)
+tuple
+>>> mylist = [1, 1, 2, 3]
+>>> mytuple.count(1)
+2
+>>> mytuple.index(1)
+0
+>>> mylist[0] = 0
+>>> mylist
+[0, 1, 2, 3]
+>>> mytuple[0] = 0
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'tuple' object does not support item assignment
+>>> mytuple
+(1, 1, 2, 3)
+```
+
+## Sets
+* Sets are unordered collections of unique elements.
+```
+>>> myset = set()
+>>> myset
+set()
+>>> myset.add(1)
+>>> myset
+{1}
+>>> myset.add(2)
+>>> myset
+{1, 2}
+>>> myset.add(2)
+>>> myset
+{1, 2}
+>>> set([1,1,1,1,1,1,2,2,2,2,3,3,3,3])
+{1,2,3}
+```
