@@ -63,7 +63,7 @@ Rules for variable names
 10
 ```
 
-### String Assignments
+### String Assignments & Slicing
 * Strings are sequences of characters, using the syntax of either single quotes
  or double quotes
 * Strings are ordered sequences, which means we can use **indexing** and
@@ -76,11 +76,6 @@ Rules for variable names
   * Character: [ 'h', 'e', 'l', 'l', 'o' ]
   * Index: [ 0, 1, 2, 3, 4 ]
   * Reverse Index: [ 0, -4, -3, -2, -1 ]
-* Slicing allows you to grab a subsection of multiple characters, a "slice" of
- the string. This has the following syntax: **[start:stop:step]**
-  * **start** is a numerical index for the slice start
-  * **stop** is the index you will go up to but not include
-  * **step** is the size of the "jump" you take
 ```
 >>> mystring = 'hello world'
 >>> mystring
@@ -101,6 +96,15 @@ Hello world, I'm here
 'r'
 >>> mystring[-6]
 'm'
+```
+
+## String Slicing
+Slicing allows you to grab a subsection of multiple characters, a "slice" of
+ the string. This has the following syntax: **[start:stop:step]**
+* **start** is a numerical index for the slice start
+* **stop** is the index you will go up to but not include
+* **step** is the size of the "jump" you take
+```
 >>> mystring = "abcdefghijk"
 >>> mystring[2:]
 'cdefghijk'
@@ -114,4 +118,117 @@ Hello world, I'm here
 'ceg'
 >>> mystring[::-1]
 'kjihgfedcba'
+```
+
+## String Properties & Methods
+```
+>>> "Hello " + "world"
+'Hello world'
+>>> 'z' * 10
+'zzzzzzzzzz'
+>>> 2 + 3
+5
+>>> '2' + '3'
+'23'
+>>> "Dog"[0] = "H"
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'str' object does not support item assignment
+>>> "H" + "Dog"[1:]
+'Hog'
+>>> mystring = "Hello World"
+>>> mystring.upper()
+'HELLO WORLD'
+>>> mystring.lower()
+'hello world'
+>>> mystring.upper
+<function str.upper>
+>>> mystring.split()
+['Hello', 'World']
+>>> mystring.split('l')
+['He', '', 'o Wor', 'd']
+```
+
+## Print Formatting With Strings
+```
+>>> print('This is a string {}.format('INSERTED'))
+This is a string INSERTED
+>>> print('The {} {} {}'.format('fox','brown','quick'))
+The fox brown quick
+>>> print('The {2} {1} {0}'.format('fox','brown','quick'))
+The quick brown fox
+>>> print('The {0} {0} {0}'.format('fox','brown','quick'))
+The fox fox fox
+>>> print('The {q} {b} {f}'.format(f='fox',b='brown',q='quick'))
+The quick brown fox
+>>> result = 100/777
+>>> print('The result was {r}'.format(r=result))
+The result was 0.1287001287001287
+>>> print('The result was {r:1.3f}'.format(r=result))
+The result was 0.129
+>>> print('The result was {r:10.5f}'.format(r=result))
+The result was     0.12870
+>>> result = 104.12345
+>>> print('The result was {r:1.2f}'.format(r=result))
+The result was 104.12
+name = "Jose"
+age = "20"
+print(f'Hello, his name is {name} and he is {age} years old.')
+Hello, his name is Jose and he is 20 years old.
+```
+
+## Lists
+* Lists are ordered sequences that can hold a variety of object types.
+* They use [] brackets and commas to separate objects in the list: [1,2,3,4,5]
+* Lists support indexing and slicing. Lists can be nested and also have a
+ variety of useful methods that can be called off of them.
+* Unlike a string, lists are mutable.
+```
+>>> mylist = [1,2,3]
+>>> mylist = ['string', 100, 23.4]
+>>> len(mylist)
+3
+>>> mylist = ['one', 'two', 'three']
+>>> mylist
+['one', 'two', 'three']
+>>> mylist[0]
+'one'
+>>> mylist[1:]
+['two', 'three']
+>>> anotherlist = ['four', 'five']
+>>> newlist = mylist + anotherlist
+>>> newlist
+['one', 'two', 'three', 'four', 'five']
+>>> newlist[0] = newlist[0].upper()
+>>> newlist
+['ONE', 'two', 'three', 'four', 'five']
+>>> newlist.append('six')
+>>> newlist
+['ONE', 'two', 'three', 'four', 'five', 'six']
+>>> poppeditem = newlist.pop()
+>>> newlist
+['ONE', 'two', 'three', 'four', 'five']
+>>> poppeditem 
+'six'
+>>> newlist.pop(0)
+'ONE'
+>>> letters = ['a', 'e', 'x', 'b', 'c']
+>>> numbers = [4, 1, 8, 3]
+>>> letters.sort()
+>>> letters
+['a', 'b', 'c', 'e', 'x']
+>>> letters = letters.sort()
+>>> type(letters)
+NoneType
+>>> numbers.sort()
+>>> numbers
+[1, 3, 4, 8]
+>>> numbers.reverse()
+>>> numbers
+[8, 4, 3, 1]
+>>> nestedlist = [1, 1, [1, 2]]
+>>> nestedlist[2]
+[1, 2]
+>>> nestedlist[2][1]
+2
 ```
