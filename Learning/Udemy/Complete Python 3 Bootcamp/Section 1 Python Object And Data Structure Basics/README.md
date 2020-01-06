@@ -82,17 +82,36 @@ Rules for variable names
   * **stop** is the index you will go up to but not include
   * **step** is the size of the "jump" you take
 ```
->>> test = 'hello world'
->>> test
+>>> mystring = 'hello world'
+>>> mystring
 'hello world'
->>> test = "hello world"
->>> test
+>>> mystring = "hello world"
+>>> mystring
 'hello world'
->>> test = "Hello world, I'm here"
->>> test
+>>> mystring = "Hello world, I'm here"
+>>> mystring
 "Hello world, I'm here"
->>> print(test)
+>>> print(mystring)
 Hello world, I'm here
->>> len("Hello")
-5
+>>> len(mystring)
+11
+>>> mystring[0]
+'H'
+>>> mystring[8]
+'r'
+>>> mystring[-6]
+'m'
+>>> mystring = "abcdefghijk"
+>>> mystring[2:]
+'cdefghijk'
+>>> mystring[:3]
+'abc'
+>>> mystring[3:6]
+'def'
+>>> mystring[::2]
+'acegik'
+>>> mystring[2:7:2]
+'ceg'
+>>> mystring[::-1]
+'kjihgfedcba'
 ```
