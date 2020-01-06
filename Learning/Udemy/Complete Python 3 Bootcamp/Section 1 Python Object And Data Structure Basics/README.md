@@ -78,9 +78,9 @@ Rules for variable names
   * Reverse Index: [ 0, -4, -3, -2, -1 ]
 * Slicing allows you to grab a subsection of multiple characters, a "slice" of
  the string. This has the following syntax: **[start:stop:step]**
-  ** **start** is a numerical index for the slice start
-  ** **stop** is the index you will go up to but not include
-  ** **step** is the size of the "jump" you take
+  * **start** is a numerical index for the slice start
+  * **stop** is the index you will go up to but not include
+  * **step** is the size of the "jump" you take
 ```
 >>> test = 'hello world'
 >>> test
