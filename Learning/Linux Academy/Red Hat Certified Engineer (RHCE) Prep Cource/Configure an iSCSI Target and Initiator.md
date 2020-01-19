@@ -13,6 +13,12 @@
 * LUN (logical unit number) - A number used to identify a logincal unit, which
  is a device addressed by the SCSI protocol or Storage Area Network (SAN) 
  protocols which encapsulate SCSI, such as Fibre Channel or iSCSI.
+* ACL (access control lists) - Permissions attached to an object that specify
+ which users are granted access and which operations are allowed to be performed
+ by said users to that object.
+* CHAP (challenge-handshake authentication protocol) - CHAP provides protection
+ against replay attacks by the peer through the use of an incrementally changing
+ identifier and of a variable challenge-value.
 
 ### Required Packages
 
