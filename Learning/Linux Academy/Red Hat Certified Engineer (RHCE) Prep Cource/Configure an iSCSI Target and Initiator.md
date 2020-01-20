@@ -43,7 +43,6 @@ Description  : An administration shell for configuring iSCSI, FCoE, and other
              : users will also need to install and use fcoe-utils.
 
 # dnf repoquery -l targetcli | grep "^/etc\|^/usr/bin"
-Last metadata expiration check: 0:05:38 ago on Sun 19 Jan 2020 11:35:49 AM CST.
 /etc/target
 /etc/target/backup
 /usr/bin/targetcli
@@ -69,7 +68,6 @@ Description  : firewalld is a firewall service daemon that provides a dynamic cu
              : firewall with a D-Bus interface.
 
 # dnf repoquery -l firewalld | grep "^/etc\|^/usr/bin"
-Last metadata expiration check: 0:06:46 ago on Sun 19 Jan 2020 11:35:49 AM CST.
 /etc/firewalld
 /etc/firewalld/firewalld.conf
 /etc/firewalld/helpers
@@ -84,9 +82,7 @@ Last metadata expiration check: 0:06:46 ago on Sun 19 Jan 2020 11:35:49 AM CST.
 /usr/bin/firewall-offline-cmd
 ```
 
-
-
-### Prepare Server
+### Configure Server
 
 Download the **targetcli** and **firewalld** packages. Afterwards go ahead and
  enable the services.
@@ -118,9 +114,7 @@ Sector size (logical/physical): 512 bytes / 512 bytes
 I/O size (minimum/optimal): 512 bytes / 512 bytes
 ```
 
-### targetcli 
-
-Now we will work through the `target` CLI to prepare our device.
+Now we will work through the target command line interface to prepare our device.
 
 ```
 # targetcli
@@ -163,7 +157,8 @@ current path:
 ```
 
 As you can see, the command syntax always starts with our path followed by the
- command we want to run. You can use `ls` and `cd` in the `targetcli` prompt.
+ command we want to run. You can use `ls` and `cd` in the target command line 
+ interface prompt.
 
 ```
 /> ls
@@ -229,7 +224,7 @@ Now we create a LUN, or device associated with the mountable disk. Ensure that
  you are referring to the block using the name we originally gave it.
 
 ```
-/> /iscsi/iqn.2020-01.com.mylabserver:t1/tpg1> luns/ create /backstores/block/testblock1
+/iscsi/iqn.2020-01.com.mylabserver:t1/tpg1> luns/ create /backstores/block/testblock1
 Created LUN 0
 ```
 
@@ -242,7 +237,7 @@ The server needs to know how to refer to this via the clients. This can be done
  JSON file in the **/etc/target** directory.
 
 ```
-/iscsi/iqn.2020-01.com.mylabserver:t1/tpg1> /iscsi/iqn.2020-01.com.mylabserver:t1/tpg1> acls/ create iqn.2020-01.com.mylabserver:client
+/iscsi/iqn.2020-01.com.mylabserver:t1/tpg1> acls/ create iqn.2020-01.com.mylabserver:client
 Created Node ACL for iqn.2020-01.com.mylabserver:client
 Created mapped LUN 0.
 /iscsi/iqn.2020-01.com.mylabserver:t1/tpg1> cd acls/iqn.2020-01.com.mylabserver:client/
@@ -260,10 +255,10 @@ The last thing we should do is open up port 3260 on the firewall and start the
  target and firewall services.
 
 ```
-# firewall-cmd --permanent --add-port=3260/tcp
-# firewall-cmd --reload
 # systemctl start target
 # systemctl start firewalld
+# firewall-cmd --permanent --add-port=3260/tcp
+# firewall-cmd --reload
 ```
 
 
@@ -292,4 +287,108 @@ Description  : The iscsi package provides the server daemon for the iSCSI protoc
              : as well as the utility programs used to manage it. iSCSI is a protocol
              : for distributed disk access using SCSI commands sent over Internet
              : Protocol networks.
+```
+
+### Configure Client
+
+```
+# yum install -y iscsi-initiator-utils
+# cd /etc/iscsi
+# echo "InitiatorName=iqn.2020-01.com.mylabserver:client" > initiatorname.iscsi
+# sed -i 's/#node.session.auth.authmethod = CHAP/node.session.auth.authmethod = CHAP/' /etc/iscsi/iscsid.conf
+# sed -i 's/#node.session.auth.username = username/node.session.auth.username = lunuser/' /etc/iscsi/iscsid.conf 
+# sed -i 's/#node.session.auth.password = username/node.session.auth.password = password/' /etc/iscsi/iscsid.conf 
+# iscsiadm --mode discovery --type sendtargets --portal 10.0.0.100
+10.0.0.100:3260,1 iqn.2020-01.com.mylabserver:t1
+# iscsiadm --mode node --target iqn.2020-01.com.mylabserver:t1 --portal 10.0.0.100 --login
+Logging in to [iface: default, target: iqn.2020-01.com.mylabserver:t1, portal: 10.0.0.100,3260] (multiple)
+Login to [iface: default, target: iqn.2020-01.com.mylabserver:t1, portal: 10.0.0.100,3260] successful.
+# lsblk --scsi
+NAME HCTL       TYPE VENDOR   MODEL             REV TRAN
+sda  2:0:0:0    disk LIO-ORG  testblock1       4.0  iscsi
+# lsblk | egrep "NAME|sda"
+NAME    MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+sda       8:0    0   1G  0 disk
+# mkfs.ext4 /dev/sda
+mke2fs 1.42.9 (28-Dec-2013)
+/dev/sda is entire device, not just one partition!
+Proceed anyway? (y,n) y
+Filesystem label=
+OS type: Linux
+Block size=4096 (log=2)
+Fragment size=4096 (log=2)
+Stride=0 blocks, Stripe width=32 blocks
+65536 inodes, 262144 blocks
+13107 blocks (5.00%) reserved for the super user
+First data block=0
+Maximum filesystem blocks=268435456
+8 block groups
+32768 blocks per group, 32768 fragments per group
+8192 inodes per group
+Superblock backups stored on blocks:
+	32768, 98304, 163840, 229376
+
+Allocating group tables: done
+Writing inode tables: done
+Creating journal (8192 blocks): done
+Writing superblocks and filesystem accounting information: done
+
+# blkid | grep "/dev/sda"
+/dev/sda: UUID="41955f70-d2e2-43b0-9f79-61e9b963bcfa" TYPE="ext4" 
+# echo "UUID=41955f70-d2e2-43b0-9f79-61e9b963bcfa /mnt/iscsi ext4 _netdev 0 0" >> /etc/fstab
+# mkdir /mnt/iscsi
+# mount -a
+# cd /mnt/iscsi/
+# echo "my first iscsi filesystem" > testfile.txt
+# iscsiadm -m session -P 3
+iSCSI Transport Class version 2.0-870
+version 6.2.0.874-10
+Target: iqn.2020-01.com.mylabserver:t1 (non-flash)
+	Current Portal: 10.0.0.100:3260,1
+	Persistent Portal: 10.0.0.100:3260,1
+		**********
+		Interface:
+		**********
+		Iface Name: default
+		Iface Transport: tcp
+		Iface Initiatorname: iqn.2020-01.com.mylabserver:client
+		Iface IPaddress: 10.0.0.101
+		Iface HWaddress: <empty>
+		Iface Netdev: <empty>
+		SID: 1
+		iSCSI Connection State: LOGGED IN
+		iSCSI Session State: LOGGED_IN
+		Internal iscsid Session State: NO CHANGE
+		*********
+		Timeouts:
+		*********
+		Recovery Timeout: 120
+		Target Reset Timeout: 30
+		LUN Reset Timeout: 30
+		Abort Timeout: 15
+		*****
+		CHAP:
+		*****
+		username: lunuser
+		password: ********
+		username_in: <empty>
+		password_in: ********
+		************************
+		Negotiated iSCSI params:
+		************************
+		HeaderDigest: None
+		DataDigest: None
+		MaxRecvDataSegmentLength: 262144
+		MaxXmitDataSegmentLength: 262144
+		FirstBurstLength: 65536
+		MaxBurstLength: 262144
+		ImmediateData: Yes
+		InitialR2T: Yes
+		MaxOutstandingR2T: 1
+		************************
+		Attached SCSI devices:
+		************************
+		Host Number: 2	State: running
+		scsi2 Channel 00 Id 0 Lun: 0
+			Attached scsi disk sda		State: running
 ```
