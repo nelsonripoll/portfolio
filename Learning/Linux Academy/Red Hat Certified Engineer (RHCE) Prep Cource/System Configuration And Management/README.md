@@ -103,26 +103,48 @@ The main advantage of IPv6 over IPv4 is its larger address space. The length
 
 
 #### Configuring IP Addresses
+
 Using the NetworkManager command line interface, users can manually set and test
  both IPv4 and IPv6 connections.  Run **nmcli con show** to view the names of 
  your network devices. We need to make sure NetworkManager manages the network 
  card we are using. Open up and edit the network script for your network device, 
  the name will be based on what **ifconfig** returns. In my example, my device 
- name is *eno1* and the script is located at **/etc/sysconfig/network-scripts/ifcfg-eno1**. 
+ name is *eth1* and the script is located at **/etc/sysconfig/network-scripts/ifcfg-eth1**. 
  Change the line `NM_CONTROLLED=no` to `NM_CONTROLLED=yes`. If the line is not 
  found, add it.  Now you can start (or restart if it was already running) the 
  NetworkManager service.
 
 ```
-# nmcli con show
-NAME    UUID                                  TYPE      DEVICE
-eno1    ************************************  ethernet  eno1
-virbr0  ************************************  bridge    virbr0
-# vim /etc/sysconfig/network-scripts/ifcfg-eno1
+# ifconfig
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 9001
+        inet 10.0.0.131  netmask 255.255.255.0  broadcast 10.0.0.255
+        inet6 fe80::4:90ff:fe8f:4de1  prefixlen 64  scopeid 0x20<link>
+        ether 02:04:90:8f:4d:e1  txqueuelen 1000  (Ethernet)
+        RX packets 55538  bytes 81688165 (77.9 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 3319  bytes 388114 (379.0 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+eth1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        ether 02:5f:59:dd:5d:99  txqueuelen 1000  (Ethernet)
+        RX packets 22  bytes 1342 (1.3 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 96  bytes 8192 (8.0 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 96  bytes 8192 (8.0 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+# vim /etc/sysconfig/network-scripts/ifcfg-eth1
 # systemctl start NetworkManager
 ```
 
-If you need a new connection to work with a device, you can use the 
+We need a new connection to work with a device, you can use the 
  **nmcli con add** command. Run **nmcli con show** to see the created connection. 
   Afterwards, we can configure it with the IP addresses.
 
@@ -131,9 +153,7 @@ If you need a new connection to work with a device, you can use the
 Connection ‘eth1’ (************************************) successfully added.
 # nmcli con show
 NAME    UUID                                  TYPE      DEVICE
-eno1    ************************************  ethernet  eno1
 eth1    ************************************  ethernet  eth1
-virbr0  ************************************  bridge    virbr0
 ```
 
 Configure the IPv4 address:
@@ -150,9 +170,17 @@ Configure the IPv6 address:
 # nmcli con mod eth1 ipv6.method manual
 ```
 
-To ensure that the connection is configured properly, we use **ping**:
+```
+# nmcli con show eth1 | grep "ipv[4|6]\.addresses"
+ipv4.addresses:                         192.168.10.100/24
+ipv6.addresses:                         fddb:fe2a:ab1e::c0a8:64/64
+```
+
+To ensure that the connection is configured properly, we bring up the connection
+ and use the **ping** command:
 
 ```
+# nmcli con up eth1
 # ping -I eth1 192.168.10.100
 # ping6 -I eth1 fddb:fe2a:ab1e::c0a8:64
 ```
