@@ -10,7 +10,7 @@ namespace XamarinForms
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new GridExercise2();
         }
 
         protected override void OnStart()
