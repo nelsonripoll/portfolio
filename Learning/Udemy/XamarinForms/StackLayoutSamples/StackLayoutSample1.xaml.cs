@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using FFImageLoading;
 
 using Xamarin.Forms;
 
 namespace XamarinForms
 {
-    public partial class GreetPage : ContentPage
+    public partial class StackLayoutSample1 : ContentPage
     {
-        public GreetPage()
+        public StackLayoutSample1()
         {
             InitializeComponent();
         }

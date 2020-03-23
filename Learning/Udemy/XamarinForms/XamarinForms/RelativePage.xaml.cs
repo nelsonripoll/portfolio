@@ -5,9 +5,9 @@ using Xamarin.Forms;
 
 namespace XamarinForms
 {
-    public partial class GreetPage : ContentPage
+    public partial class RelativePage : ContentPage
     {
-        public GreetPage()
+        public RelativePage()
         {
             InitializeComponent();
         }

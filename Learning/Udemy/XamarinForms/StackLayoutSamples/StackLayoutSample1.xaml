@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             x:Class="XamarinForms.StackLayoutSample1"
+             Padding="0,40,0,0"
+             Title="Stack Layout Sample 1">
+    
+
+   <StackLayout BackgroundColor="Black"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                Spacing="20"
+                Padding="40"
+                Orientation="Horizontal">
+
+        <StackLayout>
+            <ffimageloading:CachedImage Source="https://picsum.photos/100" />
+            <Label BackgroundColor="Red" 
+                   Text="Label 1"/>
+        </StackLayout>
+        
+        <Label BackgroundColor="White" 
+               Text="Label 2"/>
+
+        <Label BackgroundColor="Blue" 
+               Text="Label 3"/>
+    </StackLayout>
+</ContentPage>

@@ -5,9 +5,9 @@ using Xamarin.Forms;
 
 namespace XamarinForms
 {
-    public partial class GreetPage : ContentPage
+    public partial class AbsoluteLayoutExercise2 : ContentPage
     {
-        public GreetPage()
+        public AbsoluteLayoutExercise2()
         {
             InitializeComponent();
         }
