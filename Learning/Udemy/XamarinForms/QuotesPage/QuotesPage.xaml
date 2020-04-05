@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XamarinForms.QuotesPage"
+             Padding="20,20,20,20"
+             Title="Quotes Page">
+        
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
+                    iOS="20,30,20,20"
+                    Android="20,30,20,20"
+                    WinPhone="20,40,20,20"/>
+    </ContentPage.Padding>
+
+    <StackLayout>
+        <Button x:Name="next_button"
+                HorizontalOptions="Center"
+                Text="Next"
+                Clicked="NextButtonClicked" />
+        
+        <Label x:Name="font_slider_label"
+               Text="{
+                   Binding
+                   Source={x:Reference font_slider},
+                   Path=Value,
+                   StringFormat='Font Size: {0:F0}'
+               }"/>
+        
+        <Slider x:Name="font_slider"
+                Maximum="50"
+                Minimum="16"
+                Value="16"
+                MaximumTrackColor="Gray"
+                MinimumTrackColor="Blue"
+                ThumbColor="DarkSlateBlue"
+                ValueChanged="FontValueChanged" />
+
+        <Label x:Name="quote"/>
+    </StackLayout>   
+</ContentPage>

@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XamarinForms.GridLayoutSample1"
+             Padding="0,40,0,0">
+
+    <Grid RowSpacing="20"
+          ColumnSpacing="40"
+          BackgroundColor="Yellow">
+
+        <Grid.RowDefinitions>
+            <!-- Height is 100 units tall -->
+            <RowDefinition Height="100"/>
+            <!-- Remainder height is divided -->
+            <!-- Row 2 is twice as high as row 3 -->
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <!-- Width is wide enough to fit all children -->
+            <ColumnDefinition Width="Auto"/>
+            <!-- Remainder width is divided -->
+            <!-- Column 2 is twice as wide as column 3 -->
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0"
+               Grid.Column="0"
+               BackgroundColor="Silver"
+               Text="Label 1"/>
+
+        <Label Grid.Row="0"
+               Grid.Column="1"
+               BackgroundColor="Silver"
+               Text="Label 2"/>
+
+        <Label Grid.Row="1"
+               Grid.Column="0"
+               BackgroundColor="Silver"
+               Text="Label 3"/>
+
+        <Label Grid.Row="1"
+               Grid.Column="1"
+               BackgroundColor="Silver"
+               Text="Label 4"/>
+
+        <Label Grid.Row="2"
+               Grid.ColumnSpan="3"
+               BackgroundColor="Red"
+               Text="Label 5"/>
+
+        <!-- Label 6 will overlap Label 5 because it is declared second -->
+        <Label Grid.RowSpan="3"
+               Grid.Column="2"
+               BackgroundColor="Blue"
+               Text="Label 6"/>
+    </Grid>
+
+</ContentPage>
